@@ -1,5 +1,16 @@
 # kickstart.nvim
 
+## My Configuration
+
+This is my customized version of [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim). Some features I added:
+* C++ LSPs, linters, and debuggers
+* Neorg for note taking
+* Other things I might find later
+
+I forked this so I can easily set up my own Neovim configuration on any computer, but you're free to use it too.
+
+Everything below here is written by the kickstart.nvim developers, but I replaced all instances of `nvim-lua` with `TechMaster85` so you can set up my configuration instead.
+
 ## Introduction
 
 A starting point for Neovim that is:
