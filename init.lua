@@ -868,6 +868,34 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+  { -- Luarocks Package Manager: Required for Neorg
+    'vhyrro/luarocks.nvim',
+    priority = 1000,
+    config = true,
+  },
+  { -- Neorg notes
+    'nvim-neorg/neorg',
+    dependencies = { 'luarocks.nvim' },
+    version = '*',
+    config = function()
+      require('neorg').setup {
+        load = {
+          ['core.defaults'] = {},
+          ['core.concealer'] = {},
+          ['core.dirman'] = {
+            config = {
+              workspaces = {
+                -- Where I keep my notes, feel free to change this
+                personal = '~/Personal/Notes/',
+                school = '~/School/Notes/',
+              },
+              default_workspace = 'personal',
+            },
+          },
+        },
+      }
+    end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
