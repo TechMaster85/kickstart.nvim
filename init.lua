@@ -896,6 +896,19 @@ require('lazy').setup({
       }
     end,
   },
+  { -- Sniprun: Run lines of code inline with notes
+    'michaelb/sniprun',
+    branch = 'master',
+    build = 'sh install.sh 1',
+    -- do 'sh install.sh 1' if you want to force compile locally
+    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
+
+    config = function()
+      require('sniprun').setup {
+        -- your options
+      }
+    end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
