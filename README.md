@@ -4,12 +4,12 @@
 
 This is my customized version of [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim). Some features I added:
 * C++ LSPs, linters, and debuggers
-* Neorg for note taking
 * Other things I might find later
 
 I forked this so I can easily set up my own Neovim configuration on any computer, but you're free to use it too.
 
 Everything below here is written by the kickstart.nvim developers, but I replaced all instances of `nvim-lua` with `TechMaster85` so you can set up my configuration instead.
+
 
 ## Introduction
 
@@ -39,8 +39,8 @@ External Requirements:
 - A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
   - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
 - Language Setup:
-  - If want to write Typescript, you need `npm`
-  - If want to write Golang, you will need `go`
+  - If you want to write Typescript, you need `npm`
+  - If you want to write Golang, you will need `go`
   - etc.
 
 > **NOTE**
@@ -57,8 +57,8 @@ Neovim's configurations are located under the following paths, depending on your
 | OS | PATH |
 | :- | :--- |
 | Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
-| Windows (cmd)| `%userprofile%\AppData\Local\nvim\` |
-| Windows (powershell)| `$env:USERPROFILE\AppData\Local\nvim\` |
+| Windows (cmd)| `%localappdata%\nvim\` |
+| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
 
 #### Recommended Step
 
@@ -69,6 +69,10 @@ fork to your machine using one of the commands below, depending on your OS.
 > **NOTE**
 > Your fork's url will be something like this:
 > `https://github.com/<your_github_username>/kickstart.nvim.git`
+
+You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
+too - it's ignored in the kickstart repo to make maintenance easier, but it's
+[recommmended to track it in version control](https://lazy.folke.io/usage/lockfile).
 
 #### Clone kickstart.nvim
 > **NOTE**
@@ -88,13 +92,13 @@ git clone https://github.com/TechMaster85/kickstart.nvim.git "${XDG_CONFIG_HOME:
 If you're using `cmd.exe`:
 
 ```
-git clone https://github.com/TechMaster85/kickstart.nvim.git %userprofile%\AppData\Local\nvim\
+git clone https://github.com/TechMaster85/kickstart.nvim.git "%localappdata%\nvim"
 ```
 
 If you're using `powershell.exe`
 
 ```
-git clone https://github.com/TechMaster85/kickstart.nvim.git $env:USERPROFILE\AppData\Local\nvim\
+git clone https://github.com/TechMaster85/kickstart.nvim.git "${en:LOCALAPPDATA}\nvim"
 ```
 
 </details>
@@ -137,7 +141,7 @@ examples of adding popularly requested plugins.
     `~/.local/share/nvim-kickstart`. You can apply this approach to any Neovim
     distribution that you would like to try out.
 * What if I want to "uninstall" this configuration:
-  * See [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling) information
+  * See [lazy.nvim uninstall](https://lazy.folke.io/usage#-uninstalling) information
 * Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
   * The main purpose of kickstart is to serve as a teaching tool and a reference
     configuration that someone can easily use to `git clone` as a basis for their own.
