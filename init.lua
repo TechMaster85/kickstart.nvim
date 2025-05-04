@@ -648,7 +648,8 @@ require('lazy').setup({
         'clang-format',
         'clangd',
         'cpptools',
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'texlab',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -689,7 +690,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = false, cpp = false }
+        local disable_filetypes = { c = false, cpp = false, tex = false }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -704,6 +705,7 @@ require('lazy').setup({
       formatters_by_ft = {
         cpp = { 'clangd' },
         lua = { 'stylua' },
+        tex = { 'texlab' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
         --
@@ -913,6 +915,35 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  {
+    'lervag/vimtex',
+    ft = 'tex',
+    config = function()
+      vim.g.tex_flavor = 'latex' -- Default to LaTeX
+      vim.g.vimtex_view_method = 'zathura' -- Your viewer here
+      vim.g.vimtex_compiler_method = 'latexmk'
+      vim.g.vimtex_compiler_latexmk = {
+        options = {
+          '-pdf',
+          '-synctex=1', -- Enable SyncTeX
+          '-interaction=nonstopmode',
+        },
+      }
+      vim.g.vimtex_quickfix_mode = 0 -- Disable quickfix window (optional)
+      vim.g.vimtex_mappings_enabled = 1 -- Enable default mappings
+    end,
+  },
+  {
+    'nvim-orgmode/orgmode',
+    event = 'VeryLazy',
+    config = function()
+      -- Setup orgmode
+      require('orgmode').setup {
+        org_agenda_files = '~/orgfiles/*.org',
+        org_default_notes_file = '~/orgfiles/refile.org',
+      }
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -924,11 +955,11 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
